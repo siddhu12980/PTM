@@ -20,3 +20,5 @@ app.use("/api/v1", accountRouter)
 
 
 app.listen(PORT, () => console.log(`Connected at ${PORT}`));
+
+

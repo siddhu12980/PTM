@@ -20,7 +20,7 @@ model user {
   email      String    @unique
   password   String
   account    account[]
-  // transactionHistory Medicalreport[] @defult([])
+  // transactionHistory transaction[] @defult([])
 }
 
 model account {
