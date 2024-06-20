@@ -3,6 +3,7 @@ import FormAction from "../components/FormAction";
 import FormExtra from "../components/FormExtra";
 import Input from "../components/Input";
 import { loginFields } from "../constants/formfield";
+import { Header } from "../components/Header";
 
 const fields = loginFields;
 let fieldsState = {};
@@ -26,6 +27,10 @@ export const Login = () => {
   return (
     <>
       <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <Header
+          heading={"Sign In"}
+          paragraph={"Enter Your Credentialas to access your account."}
+        />
         <div className="-space-y-px">
           {fields.map((field) => (
             <Input
@@ -45,6 +50,11 @@ export const Login = () => {
 
         <FormExtra />
         <FormAction handleSubmit={handleSubmit} text="Login" />
+        <div className=" text-center">
+          <p className="text-xm">
+            Dont Have a account? <span className=" underline">Sign Up</span>
+          </p>
+        </div>
       </form>
     </>
   );

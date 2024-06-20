@@ -2,7 +2,8 @@ import { useState } from "react";
 import { loginFields } from "../constants/formfield";
 import Input from "./Input";
 
-const fields = loginFields;
+const fields = loginFiel;
+ds;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
