@@ -5,7 +5,7 @@ import { Signup } from "./Signup";
 export default function AppRouter() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<h1>Home Page</h1>} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/login" element={<Login />} />
       {/* <Route path="/dashboard" element={<Signup />} /> */}

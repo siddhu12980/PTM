@@ -4,6 +4,7 @@ import FormExtra from "../components/FormExtra";
 import Input from "../components/Input";
 import { loginFields } from "../constants/formfield";
 import { Header } from "../components/Header";
+import { Link } from "react-router-dom";
 
 const fields = loginFields;
 let fieldsState = {};
@@ -52,7 +53,13 @@ export const Login = () => {
         <FormAction handleSubmit={handleSubmit} text="Login" />
         <div className=" text-center">
           <p className="text-xm">
-            Dont Have a account? <span className=" underline">Sign Up</span>
+            Dont Have a account?{" "}
+            <Link
+              to="/signup"
+              className="font-semibold  text-slate-800 hover:text-slate-500"
+            >
+              Sign Up
+            </Link>
           </p>
         </div>
       </form>

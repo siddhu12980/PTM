@@ -15,7 +15,7 @@ export default function Input({
   customClass,
 }) {
   return (
-    <div className="my-5">
+    <div className="my-5 pt-2">
       <label htmlFor={labelFor} className=" h-10  font-medium   font-sans">
         {labelText}
       </label>
