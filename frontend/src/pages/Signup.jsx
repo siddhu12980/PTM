@@ -40,6 +40,7 @@ export const Signup = () => {
       },
       body: JSON.stringify({
         email: SignupState.emailaddress,
+        username: SignupState.username,
         password: SignupState.password,
         first_name: SignupState.first_name,
         last_name: SignupState.last_name,
