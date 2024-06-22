@@ -6,5 +6,5 @@ export const userRouter = Router()
 
 userRouter.post("/user/signin", userSignin)
 userRouter.post("/user/signup", userSignup)
-userRouter.put("/user", authMiddleware, updatePassword)
-userRouter.get("/user", userDetailList)
+// userRouter.put("/user", authMiddleware, updatePassword)
+// userRouter.get("/user", userDetailList)

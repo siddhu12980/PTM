@@ -4,13 +4,15 @@ import FormExtra from "../components/FormExtra";
 import Input from "../components/Input";
 import { loginFields } from "../constants/formfield";
 import { Header } from "../components/Header";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export const Login = () => {
+  const navigate = useNavigate();
+
   const [loginState, setLoginState] = useState(fieldsState);
 
   const handleChange = (e) => {
@@ -23,7 +25,36 @@ export const Login = () => {
   };
 
   //Handle Login API Integration here
-  const authenticateUser = () => {};
+  const authenticateUser = () => {
+    console.log("LoginState", loginState);
+
+    fetch("http://localhost:3200/api/v1/user/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: loginState.emailaddress,
+        password: loginState.password,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        if (data.token !== undefined) {
+          alert("User Logged In Successfully");
+
+          const { token } = data;
+          localStorage.setItem("token", token);
+
+          navigate("/dashboard");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("User Login Failed");
+      });
+  };
 
   return (
     <>

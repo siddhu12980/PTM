@@ -5,12 +5,15 @@ import FormExtra from "../components/FormExtra";
 import Input from "../components/Input";
 import { Header } from "../components/Header";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const fields = signupFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export const Signup = () => {
+  const navigate = useNavigate();
   const [SignupState, setSignupState] = useState(fieldsState);
 
   const handleChange = (e) => {
@@ -19,12 +22,42 @@ export const Signup = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (SignupState.password !== SignupState.confirmpassword) {
+      alert("Password and Confirm Password should be same");
+      return;
+    }
     authenticateUser();
   };
 
-  //Handle Signup API Integration here
   const authenticateUser = () => {
     console.log("SignupState", SignupState);
+
+    fetch("http://localhost:3200/api/v1/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: SignupState.emailaddress,
+        password: SignupState.password,
+        first_name: SignupState.first_name,
+        last_name: SignupState.last_name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+        if (data.user !== undefined) {
+          alert("User Created Successfully");
+          setSignupState(fieldsState);
+          navigate("/login");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("User Creation Failed");
+      });
   };
 
   return (
