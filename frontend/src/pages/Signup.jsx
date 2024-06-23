@@ -6,7 +6,6 @@ import Input from "../components/Input";
 import { Header } from "../components/Header";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const fields = signupFields;
 let fieldsState = {};

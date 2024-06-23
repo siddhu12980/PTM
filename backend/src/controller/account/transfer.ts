@@ -37,12 +37,27 @@ function transfer(from: string, to: string, amount: number) {
 
 
 export const transferBalance = async (req: Request, res: Response) => {
+    console.log("token_id:", req.body.data.id)
+
     try {
 
+
         const { transferAmount, toAccount } = req.body;
+        if (!transferAmount || !toAccount) {
+            return res.status(400).json({
+                msg: "Invalid Request",
+            });
+        }
+
+        if (toAccount == req.body.data.id) {
+            return res.status(400).json({
+                msg: "You can't transfer to your own account",
+            });
+
+        }
         const my_account = await prisma.account.findFirst({
             where: {
-                user_id: req.body.data.id,
+                user_id: parseInt(req.body.data.id),
             },
         });
         if (!my_account) {
@@ -50,9 +65,15 @@ export const transferBalance = async (req: Request, res: Response) => {
                 msg: "Your Account not found",
             });
         }
+
+        if (my_account.balance < parseInt(transferAmount)) {
+            return res.status(400).json({
+                msg: "You doesn't have enough balance",
+            });
+        }
         const destinationAccount = await prisma.account.findFirst({
             where: {
-                user_id: toAccount
+                user_id: parseInt(toAccount),
             }
         })
 
@@ -61,8 +82,10 @@ export const transferBalance = async (req: Request, res: Response) => {
                 msg: "Destination Account not found",
             });
         }
+        console.log("my_account:", my_account)
+        console.log("destinationAccount:", destinationAccount)
 
-        const transaction_data = await transfer(my_account.id, destinationAccount.id, transferAmount)
+        const transaction_data = await transfer(my_account.id, destinationAccount.id, parseInt(transferAmount))
 
 
         res.status(200).json({

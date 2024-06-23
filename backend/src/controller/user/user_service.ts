@@ -27,12 +27,11 @@ export const userDetailList = async (req: Request, res: Response) => {
                 ],
             },
 
-
         });
 
 
         return res.json({
-            data: users,
+            account_details: users,
         });
 
     } catch (e: any) {

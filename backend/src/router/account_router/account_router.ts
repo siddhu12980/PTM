@@ -7,4 +7,4 @@ export const accountRouter = Router()
 
 accountRouter.get("/account/balance", authMiddleware, getbalance)
 accountRouter.post("/account/transfer", authMiddleware, transferBalance)
-accountRouter.get("/account/all", authMiddleware, allaccounts)
+accountRouter.get("/account/all", authMiddleware, allaccounts) 

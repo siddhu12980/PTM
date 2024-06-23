@@ -3,6 +3,7 @@ import { SearchComponent } from "../components/SearchComponent";
 
 export const Daashboard = () => {
   const [name, setName] = useState("");
+  const [my_id, setMy_id] = useState(0);
   const [balance, setBalance] = useState(0);
 
   useEffect(() => {
@@ -15,9 +16,11 @@ export const Daashboard = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("Success:", data);
+        // console.log("Success:", data);
         setName(data.user);
+
         setBalance(data.account.balance);
+        setMy_id(data.account.user_id);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -48,7 +51,7 @@ export const Daashboard = () => {
           </div>
         </div>
       </div>
-      <SearchComponent />
+      <SearchComponent my_id={my_id} />
     </>
   );
 };
