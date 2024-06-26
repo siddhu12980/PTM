@@ -1,10 +1,11 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, TransactionStatus } from "@prisma/client";
 import { Request, Response } from "express";
 
 const prisma = new PrismaClient();
 
 function transfer(from: string, to: string, amount: number) {
     return prisma.$transaction(async (tx) => {
+
         const sender = await tx.account.update({
             data: {
                 balance: {
@@ -31,9 +32,54 @@ function transfer(from: string, to: string, amount: number) {
             },
         })
 
-        return [sender, recipient]
-    })
+        const transaction1 = await tx.transaction.create({
+            data: {
+                amount,
+                senderId: sender.id,
+                receiverId: recipient.id,
+                status: TransactionStatus.COMPLETED,
+            },
+
+        })
+
+
+        // Add transaction to sender's sentTransactions
+        await tx.account.update({
+            where: {
+                id: from,
+            },
+            data: {
+                sentTransactions: {
+                    connect: {
+                        id: transaction1.id,
+                    },
+                },
+            },
+        });
+
+        // Add transaction to recipient's receivedTransactions
+        await tx.account.update({
+            where: {
+                id: to,
+            },
+            data: {
+                receivedTransactions: {
+                    connect: {
+                        id: transaction1.id,
+                    },
+                },
+            },
+        });
+
+        return { sender, recipient, transaction1 };
+    });
 }
+
+
+
+
+
+
 
 
 export const transferBalance = async (req: Request, res: Response) => {

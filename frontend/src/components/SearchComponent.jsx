@@ -63,7 +63,7 @@ export const SearchComponent = ({ my_id }) => {
           value={query}
           onChange={handleSearch}
           placeholder="Search users..."
-          className="w-full px-2 py-1 border rounded border-slate-200"
+          className="w-full px-2 py-1 border  text-2xl rounded border-slate-200 mb-2"
         />
       </div>
       {isLoading ? (

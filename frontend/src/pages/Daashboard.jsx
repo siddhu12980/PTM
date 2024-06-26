@@ -36,7 +36,7 @@ export const Daashboard = () => {
         <div className="flex items-center space-x-3">
           <div className="text-xl md:text-4xl">Hello</div>
           <div className="rounded-full h-10 w-10 md:h-14 md:w-14 bg-slate-200 flex justify-center items-center">
-            <div className="text-lg md:text-xl">{name}</div>
+            <div className="text-lg md:text-xl">{name[0]}</div>
           </div>
         </div>
       </div>

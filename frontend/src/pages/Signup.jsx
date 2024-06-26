@@ -62,42 +62,46 @@ export const Signup = () => {
 
   return (
     <>
-      <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-        <Header
-          heading={"Sign Up"}
-          paragraph={"Enter Your Credentialas to Create your account."}
-        />
-        <div className="-space-y-px">
-          {fields.map((field) => (
-            <Input
-              key={field.id}
-              handleChange={handleChange}
-              value={SignupState[field.id]}
-              labelText={field.labelText}
-              labelFor={field.labelFor}
-              id={field.id}
-              name={field.name}
-              type={field.type}
-              isRequired={field.isRequired}
-              placeholder={field.placeholder}
+      <div className="min-h-full h-screen flex items-center justify-center py-8 px-4 sm:px-4 lg:px-6">
+        <div className="max-w-md w-full space-y-6">
+          <form className="mt-5 space-y-6" onSubmit={handleSubmit}>
+            <Header
+              heading={"Sign Up"}
+              paragraph={"Enter Your Credentialas to Create your account."}
             />
-          ))}
-        </div>
+            <div className="-space-y-px">
+              {fields.map((field) => (
+                <Input
+                  key={field.id}
+                  handleChange={handleChange}
+                  value={SignupState[field.id]}
+                  labelText={field.labelText}
+                  labelFor={field.labelFor}
+                  id={field.id}
+                  name={field.name}
+                  type={field.type}
+                  isRequired={field.isRequired}
+                  placeholder={field.placeholder}
+                />
+              ))}
+            </div>
 
-        <FormExtra />
-        <FormAction handleSubmit={handleSubmit} text="Sign Up" />
-        <div className=" text-center">
-          <p className="text-xm">
-            Already Have a account?{" "}
-            <Link
-              to="/login"
-              className="font-semibold  text-slate-800 hover:text-slate-500"
-            >
-              Log In
-            </Link>
-          </p>
+            <FormExtra />
+            <FormAction handleSubmit={handleSubmit} text="Sign Up" />
+            <div className=" text-center">
+              <p className="text-xm">
+                Already Have a account?{" "}
+                <Link
+                  to="/login"
+                  className="font-semibold  text-slate-800 hover:text-slate-500"
+                >
+                  Log In
+                </Link>
+              </p>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </>
   );
 };

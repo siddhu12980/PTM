@@ -21,21 +21,30 @@ model user {
   email      String    @unique
   password   String
   account    account[]
-  // transactionHistory transaction[] @defult([])
 }
 
 model account {
-  id      String @id @default(cuid())
-  user_id Int
-  user    user   @relation(fields: [user_id], references: [id])
-  balance Int    @default(0)
+  id                   String        @id @default(cuid())
+  user_id              Int
+  user                 user          @relation(fields: [user_id], references: [id])
+  balance              Int           @default(0)
+  sentTransactions     transaction[] @relation("sender")
+  receivedTransactions transaction[] @relation("receiver")
 }
 
-// model transaction {
-//   id         Int    @id @default(autoincrement())
-//   sender     String
-//   receiver   String
-//   time_stamp String
-//   status     String
-//   amount     Int
-// }
+model transaction {
+  id         Int               @id @default(autoincrement())
+  senderId   String
+  receiverId String
+  timeStamp  DateTime          @default(now())
+  status     TransactionStatus
+  amount     Int
+  sender     account           @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver   account           @relation("receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+}
+
+enum TransactionStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
