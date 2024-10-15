@@ -2,17 +2,20 @@
   "name": "@repo/db",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.20.0"
+    "@prisma/client": "^5.20.0",
+    "cors": "^2.8.5",
+    "prisma": "^5.20.0"
   },
-  "exports":{
-    "./client":"./src/index.ts"
-  }
+  "exports": {
+    ".": "./src/index.ts"
+  } 
 }

@@ -1,14 +1,23 @@
-import Image from "next/image";
+"use client";
+
 import { Button } from "@repo/ui/button";
-import styles from "./page.module.css";
-import {PrismaClient} from "@repo/db/client";
-const client = PrismaClient();
+import { useBalance } from "@repo/store/useBalance"
+import { Appbar } from "@repo/ui/appbar";
+
+let user1 = {
+  name: "sidd"
+}
+
 export default function Home() {
+  const balance = useBalance()
   return (
-  <>
+    <>
+      <Appbar user={user1} onSignin={console.log("SIngin")} onSignout={console.log("sinout")} />
+      <p>{balance}</p>
+      <Button onClick={() => console.log("button clicked")} > Comp Button</Button>
       <div className="text-2xl  text-red-500 underline">
 
-Home
+        Home
       </div>
     </>
   )
